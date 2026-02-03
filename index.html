@@ -1,15 +1,608 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Моя Первая HTML Страница</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кинотеатр "Экран" - Главная страница</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header styles */
+        header {
+            background-color: #1a1a1a;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: #e50914;
+        }
+
+        .logo h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #e50914;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #e50914;
+        }
+
+        .active {
+            color: #e50914;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1525&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: #ddd;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #e50914;
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #ff0a16;
+            transform: translateY(-3px);
+        }
+
+        /* Movies section */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 60px 0 40px;
+            color: #fff;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 4px;
+            background-color: #e50914;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .movie-card {
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .movie-poster {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 20px;
+        }
+
+        .movie-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .movie-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .movie-rating {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* Features section */
+        .features {
+            background-color: #1a1a1a;
+            padding: 60px 0;
+            margin: 40px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .feature i {
+            font-size: 3rem;
+            color: #e50914;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature p {
+            color: #aaa;
+        }
+
+        /* Schedule section */
+        .schedule {
+            margin-bottom: 60px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #1a1a1a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .schedule-table th {
+            background-color: #e50914;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .schedule-table td {
+            padding: 15px;
+            border-bottom: 1px solid #333;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tr:hover {
+            background-color: #222;
+        }
+
+        .movie-time {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0a0a0a;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: #e50914;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-column p, .footer-column a {
+            color: #aaa;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #e50914;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: background-color 0.3s;
+        }
+
+        .social-icons a:hover {
+            background-color: #e50914;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .schedule-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-film"></i>
+                    <h1>Кино<span>Театр</span></h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">Главная</a></li>
+                        <li><a href="#">Фильмы</a></li>
+                        <li><a href="#">Расписание</a></li>
+                        <li><a href="#">Цены</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-    <h1>Добро пожаловать!</h1>
-    <p>Это мой первый параграф текста на веб-странице. HTML используется для структурирования контента [4, 5].</p>
-    <p>Здесь еще один параграф. Мы можем использовать различные теги, такие как <b>жирный текст</b> или <i>курсив</i> [2].</p>
-    <a href="https://www.google.com">Это ссылка на Google</a>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Лучшие фильмы на большом экране</h2>
+            <p>Погрузитесь в мир кино с потрясающим качеством изображения и звука. У нас вы найдете новинки проката, классику киноискусства и комфортные залы для любого зрителя.</p>
+            <a href="#" class="btn">Купить билеты</a>
+        </div>
+    </section>
 
+    <!-- Movies Section -->
+    <section class="container">
+        <h2 class="section-title">Сейчас в кино</h2>
+        <div class="movies-grid">
+            <!-- Movie 1 -->
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Форсаж 10" class="movie-poster">
+                <div class="movie-info">
+                    <h3 class="movie-title">Форсаж 10</h3>
+                    <div class="movie-meta">
+                        <span>Боевик</span>
+                        <span class="movie-rating">★ 7.8</span>
+                    </div>
+                    <p>Доминик Торетто и его семья сталкиваются с самым опасным противником из всех, с кем они когда-либо сталкивались.</p>
+                </div>
+            </div>
+            
+            <!-- Movie 2 -->
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1194&q=80" alt="Стражи Галактики 3" class="movie-poster">
+                <div class="movie-info">
+                    <h3 class="movie-title">Стражи Галактики 3</h3>
+                    <div class="movie-meta">
+                        <span>Фантастика</span>
+                        <span class="movie-rating">★ 8.1</span>
+                    </div>
+                    <p>Стражи Галактики отправляются в опасное путешествие, чтобы спасти одного из своих.</p>
+                </div>
+            </div>
+            
+            <!-- Movie 3 -->
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1525&q=80" alt="Дюна" class="movie-poster">
+                <div class="movie-info">
+                    <h3 class="movie-title">Дюна: Часть вторая</h3>
+                    <div class="movie-meta">
+                        <span>Фантастика</span>
+                        <span class="movie-rating">★ 8.5</span>
+                    </div>
+                    <p>Продолжение эпического приключения Пола Атрейдеса на планете Арракис.</p>
+                </div>
+            </div>
+            
+            <!-- Movie 4 -->
+            <div class="movie-card">
+                <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1631&q=80" alt="Оппенгеймер" class="movie-poster">
+                <div class="movie-info">
+                    <h3 class="movie-title">Оппенгеймер</h3>
+                    <div class="movie-meta">
+                        <span>Драма</span>
+                        <span class="movie-rating">★ 8.3</span>
+                    </div>
+                    <p>История американского ученого Дж. Роберта Оппенгеймера и его роли в создании атомной бомбы.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Наши преимущества</h2>
+            <div class="features-grid">
+                <div class="feature">
+                    <i class="fas fa-couch"></i>
+                    <h3>Комфортные кресла</h3>
+                    <p>Ортопедические кресла с регулируемыми подлокотниками и подголовниками</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-volume-up"></i>
+                    <h3>Звук премиум-класса</h3>
+                    <p>Система Dolby Atmos создает эффект полного погружения в происходящее на экране</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Удобная покупка билетов</h3>
+                    <p>Бронируйте места онлайн или через мобильное приложение без очередей</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-concierge-bell"></i>
+                    <h3>Кинобар</h3>
+                    <p>Широкий выбор закусок и напитков, включая фирменные коктейли и десерты</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section class="container schedule">
+        <h2 class="section-title">Расписание на сегодня</h2>
+        <table class="schedule-table">
+            <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>Фильм</th>
+                    <th>Зал</th>
+                    <th>Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="movie-time">10:00</td>
+                    <td>Форсаж 10</td>
+                    <td>Зал 1 (3D)</td>
+                    <td>450 ₽</td>
+                </tr>
+                <tr>
+                    <td class="movie-time">12:30</td>
+                    <td>Стражи Галактики 3</td>
+                    <td>Зал 2 (IMAX)</td>
+                    <td>550 ₽</td>
+                </tr>
+                <tr>
+                    <td class="movie-time">15:00</td>
+                    <td>Дюна: Часть вторая</td>
+                    <td>Зал 3 (4DX)</td>
+                    <td>600 ₽</td>
+                </tr>
+                <tr>
+                    <td class="movie-time">18:30</td>
+                    <td>Оппенгеймер</td>
+                    <td>Зал 1 (3D)</td>
+                    <td>500 ₽</td>
+                </tr>
+                <tr>
+                    <td class="movie-time">21:00</td>
+                    <td>Форсаж 10</td>
+                    <td>Зал 2 (IMAX)</td>
+                    <td>550 ₽</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Кинотеатр "Экран"</h3>
+                    <p>Лучший выбор фильмов и максимальный комфорт для зрителей. Мы работаем, чтобы дарить вам незабываемые эмоции.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Кинотеатральная, 15</p>
+                    <p><i class="fas fa-phone"></i> +7 (495) 123-45-67</p>
+                    <p><i class="fas fa-envelope"></i> info@kinoteatr.ru</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Быстрые ссылки</h3>
+                    <a href="#">Главная</a>
+                    <a href="#">Фильмы</a>
+                    <a href="#">Расписание</a>
+                    <a href="#">Цены</a>
+                    <a href="#">Контакты</a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Кинотеатр "Экран". Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Анимация для кнопки покупки билетов
+        document.querySelector('.btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('В реальном сайте здесь будет переход к покупке билетов. Для примера показываем это сообщение.');
+        });
+        
+        // Добавляем эффект при наведении на карточки фильмов
+        const movieCards = document.querySelectorAll('.movie-card');
+        movieCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px)';
+                this.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.5)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+        
+        // Выделение активного пункта меню
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                navLinks.forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
